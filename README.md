@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📝 Todo App - A Full Stack Learning Project
 
-## Getting Started
+A complete todo application I built to learn React, Next.js, TypeScript, and REST APIs. Features include create, read, update, delete, and filtering todos.
 
-First, run the development server:
+## 🚀 Live Demo
 
+[View the live app](https://your-vercel-url.vercel.app)
+
+## ✨ Features I Built
+
+- Add new todos
+- Mark todos as complete/incomplete
+- Edit todos (double-click to edit, Enter to save)
+- Delete todos you don't need anymore
+- Filter todos by: All, Active, Completed
+- Shows remaining tasks count
+- Keyboard shortcuts: Enter to add, Escape to cancel edit
+- Dark theme UI
+
+## 🛠️ What I Used
+
+| Technology | What I learned |
+|------------|----------------|
+| Next.js 15 | App Router, pages, and routing |
+| TypeScript | Type safety and better error catching |
+| Tailwind CSS | Styling without writing CSS files |
+| JSON Server | Creating a mock backend in minutes |
+| React Hooks | useState, useEffect, async/await |
+| REST APIs | GET, POST, PATCH, DELETE requests |
+| Git & GitHub | Version control and code hosting |
+| Vercel | Deploying a Next.js app for free |
+
+## 🔧 How to Run Locally
+
+1. **Install dependencies**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install JSON Server**
+```bash
+npm install -D json-server@0.17.4
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Create a database file** (`db.json` in the root folder)
+```json
+{
+  "todos": [
+    {
+      "id": 1,
+      "text": "Learn React",
+      "completed": false
+    }
+  ]
+}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Start JSON Server** (Terminal 1)
+```bash
+npx json-server db.json --port 8000
+```
 
-## Learn More
+5. **Start the app** (Terminal 2)
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+6. **Open** `http://localhost:3000`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📂 How I Organized the Code
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+todo-app/
+├── app/
+│   ├── page.tsx          # Main page (renders TodoApp)
+│   └── layout.tsx        # App wrapper
+├── components/
+│   └── TodoApp.tsx       # All todo logic and UI
+├── lib/
+│   └── api.ts           # API calls (fetch functions)
+├── db.json              # Mock database (JSON Server)
+```
 
-## Deploy on Vercel
+## 🧠 What I Learned
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### React Concepts
+- **useState** - Managing data that changes (todos list, input value, filter)
+- **useEffect** - Running code when component loads (fetching todos from API)
+- **Props** - Passing data between components
+- **Conditional rendering** - Showing different UI based on state (loading, editing, filtering)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### TypeScript
+- Defining types for data (Todo type with id, text, completed)
+- Using unions (`'all' | 'active' | 'completed'`)
+- Function return types (`Promise<Todo[]>`)
+
+### REST API
+- GET - Fetch all todos from the server
+- POST - Add a new todo (server creates the ID)
+- PATCH - Update existing todo (text or completed status)
+- DELETE - Remove a todo from the database
+
+### Why Both State and API?
+- **React State** = What user sees (fast, temporary)
+- **Database** = What is saved (slow, permanent)
+- **Update BOTH** = Complete app!
+
+### Tailwind CSS Classes I Used Most
+- `flex`, `flex-1`, `gap-2`, `justify-between`, `items-center` - Layout
+- `bg-gray-800`, `text-white`, `text-gray-400` - Colors
+- `p-4`, `px-4`, `py-2`, `mx-auto`, `mt-16` - Spacing
+- `rounded-lg`, `border` - Borders
+- `hover:bg-blue-700`, `transition-colors` - Interactions
+
+## 🚢 Deployment
+
+I deployed this app to **Vercel**:
+1. Pushed code to GitHub
+2. Imported repository to Vercel
+3. Vercel auto-deploys on every push
+
+**Note:** The live version uses localStorage instead of JSON Server (since JSON Server only runs locally)
+
+## 📝 What I'd Add Next
+
+- User authentication (login/register)
+- Due dates for todos
+- Search functionality
+
+---
+
+**Built as part of my frontend development learning journey** 🚀
+```
+
+---
