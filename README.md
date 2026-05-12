@@ -4,7 +4,7 @@ A complete todo application I built to learn React, Next.js, TypeScript, and RES
 
 ## 🚀 Live Demo
 
-[View the live app]([https://my-todo-4jj3cpq7m-dev-damilola7-s-projects.vercel.app/]))
+[View the live app](https://my-todo-4jj3cpq7m-dev-damilola7-s-projects.vercel.app/)
 
 ## ✨ Features I Built
 
