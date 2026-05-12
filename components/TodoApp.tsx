@@ -9,44 +9,35 @@ type Todo = {
 }
 
 export default function TodoApp() {
-    // State for the input value (what the user is typing)
     const [inputValue, setInputValue] = useState("");
-
-    // State for the list of Todos
     const [todos, setTodos] = useState<Todo[]>([]);
-
-    // Loading state
     const [loading, setLoading] = useState(true);
-
-    // State for editing
     const [editingId, setEditingId] = useState<number | null>(null);
     const [editText, setEditText] = useState("");
-
-    // Filter: 'all' | 'active' | 'completed'
     const [currentView, setCurrentView] = useState<'all' | 'active' | 'completed'>('all');
 
-    // Load Todos from localStorage when the app starts
+    // LOAD from localStorage when app starts
     useEffect(() => {
         const savedTodos = localStorage.getItem("todos");
         if (savedTodos) {
             setTodos(JSON.parse(savedTodos));
         }
-        setLoading(false); // ← IMPORTANT: turn off loading after loading
+        setLoading(false);
     }, []);
 
-    // Save todos to localStorage whenever they change
+    // SAVE to localStorage whenever todos change
     useEffect(() => {
-        if (!loading) { // Don't save while still loading
+        if (!loading) {
             localStorage.setItem("todos", JSON.stringify(todos));
         }
     }, [todos, loading]);
 
-    // Add a new todo (localStorage version)
+    // Add a new todo
     const handleAddTodo = () => {
         if (inputValue.trim() === "") return;
 
         const newTodo: Todo = {
-            id: Date.now(), // Generate ID locally for localStorage
+            id: Date.now(),
             text: inputValue,
             completed: false,
         };
@@ -55,7 +46,7 @@ export default function TodoApp() {
         setInputValue("");
     };
 
-    // Toggle completed status (localStorage version)
+    // Toggle completed status
     const toggleCompleted = (id: number) => {
         setTodos(
             todos.map((todo) =>
@@ -64,12 +55,12 @@ export default function TodoApp() {
         );
     };
 
-    // Delete a todo (localStorage version)
+    // Delete a todo
     const deleteTodo = (id: number) => {
         setTodos(todos.filter((todo) => todo.id !== id));
     };
 
-    // Save edited todo (localStorage version)
+    // Save edited todo
     const saveEdit = (id: number) => {
         if (editText.trim() === "") return;
         
@@ -82,31 +73,26 @@ export default function TodoApp() {
         setEditText("");
     };
 
-    // Handle when the user is typing
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     };
 
-    // Handle enter key press for adding
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             handleAddTodo();
         }
     };
 
-    // Start editing a todo
     const startEditing = (id: number, currentText: string) => {
         setEditingId(id);
         setEditText(currentText);
     };
 
-    // Cancel editing
     const cancelEdit = () => {
         setEditingId(null);
         setEditText("");
     };
 
-    // Handle key press in edit input
     const handleEditKeyPress = (e: React.KeyboardEvent<HTMLInputElement>, id: number) => {
         if (e.key === "Enter") {
             saveEdit(id);
@@ -115,10 +101,8 @@ export default function TodoApp() {
         }
     };
 
-    // Count incomplete todos
     const remainingCount = todos.filter((todo) => !todo.completed).length;
 
-    // Get filtered todos based on current filter
     const filteredTodos = todos.filter((todo) => {
         if (currentView === 'active') return !todo.completed;
         if (currentView === 'completed') return todo.completed;
@@ -139,7 +123,6 @@ export default function TodoApp() {
                 📝 My Todo App
             </h1>
 
-            {/* Input section */}
             <div className="bg-gray-800 rounded-lg p-4 mb-6">
                 <div className="flex gap-2">
                     <input
@@ -159,14 +142,12 @@ export default function TodoApp() {
                 </div>
             </div>
 
-            {/* Status bar */}
             {todos.length > 0 && (
                 <div className="mb-4 text-sm text-gray-400">
                     {remainingCount} task{remainingCount !== 1 ? "s" : ""} remaining
                 </div>
             )}
 
-            {/* Filter buttons */}
             <div className="flex gap-2 mb-6">
                 <button
                     onClick={() => setCurrentView('all')}
@@ -200,7 +181,6 @@ export default function TodoApp() {
                 </button>
             </div>
 
-            {/* Todo List */}
             <div className="space-y-2">
                 {filteredTodos.length === 0 ? (
                     <div className="text-center text-gray-500 py-8">
@@ -213,7 +193,6 @@ export default function TodoApp() {
                             className="bg-gray-800 rounded-lg p-3 flex items-center justify-between gap-3"
                         >
                             {editingId === todo.id ? (
-                                // Edit Mode
                                 <div className="flex items-center gap-3 flex-1">
                                     <input
                                         type="text"
@@ -226,7 +205,6 @@ export default function TodoApp() {
                                     />
                                 </div>
                             ) : (
-                                // View Mode
                                 <div className="flex items-center gap-3 flex-1">
                                     <input
                                         type="checkbox"
