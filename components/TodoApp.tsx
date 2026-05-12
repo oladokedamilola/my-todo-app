@@ -29,22 +29,22 @@ export default function TodoApp() {
     const [currentView, setCurrentView] = useState<'all' | 'active' | 'completed'>('all');
 
 
-    // LOAD: Fetch todos from API when app starts
-    useEffect(()=>{
-        const loadTodos = async ()=> {
-            try {
-                const data = await fetchTodos();
-                setTodos(data);
-            }
-            catch (error) {
-                console.error("Failed to load todos:", error)
-            }
-            finally {
-                setLoading(false);
-            }
-        };
-        loadTodos();
-    }, []);
+    // // LOAD: Fetch todos from API when app starts
+    // useEffect(()=>{
+    //     const loadTodos = async ()=> {
+    //         try {
+    //             const data = await fetchTodos();
+    //             setTodos(data);
+    //         }
+    //         catch (error) {
+    //             console.error("Failed to load todos:", error)
+    //         }
+    //         finally {
+    //             setLoading(false);
+    //         }
+    //     };
+    //     loadTodos();
+    // }, []);
 
 
     // Add a new todo
@@ -189,19 +189,19 @@ export default function TodoApp() {
         return true;
     });
 
-    // // Load Todos from localStorage when the app starts
-    // useEffect(()=>{
-    //     const saveTodos = localStorage.getItem("todos");
-    //     if (saveTodos){
-    //         setTodos(JSON.parse(saveTodos));
-    //     }
-    // }, []); // Empty array= runs only once when component mounts
+    // Load Todos from localStorage when the app starts
+    useEffect(()=>{
+        const saveTodos = localStorage.getItem("todos");
+        if (saveTodos){
+            setTodos(JSON.parse(saveTodos));
+        }
+    }, []); // Empty array= runs only once when component mounts
 
 
-    // // Save todos to localStorage whenever they change
-    // useEffect(()=>{
-    //     localStorage.setItem("todos", JSON.stringify(todos));
-    // }, [todos]); // Runs everytime 'todos' change
+    // Save todos to localStorage whenever they change
+    useEffect(()=>{
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos]); // Runs everytime 'todos' change
 
 
     if (loading){
